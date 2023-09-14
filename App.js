@@ -3,56 +3,109 @@
  * @author Emre Deniz
  */
 
-import React, {useState} from 'react';
-import {SafeAreaView, StyleSheet, TextInput, Text, Button, Switch} from 'react-native';
+import React from 'react';
+import {View, SafeAreaView, StyleSheet, TextInput, Text, Button, TouchableOpacity} from 'react-native';
 
 export default function App() {
-    const [inputValue, onChangeInput] = React.useState('');
-    const [isChecked, setChecked] = useState(false);
+    const [firstNameValue, onChangeFirstName] = React.useState('');
+    const [lastNameValue, onChangeLastName] = React.useState('');
+    const [emailValue, onChangeEmail] = React.useState('');
+    const [output, setOutput] = React.useState('');
+
+    // Clear button function
+    function onClickClearButton() {
+        onChangeFirstName('');
+        onChangeLastName('');
+        onChangeEmail('');
+        setOutput('');
+    };
+
+    // Send button function
+    function onClickSendButton() {
+        setOutput(firstNameValue + '\n' + lastNameValue + '\n' + emailValue);
+    };
 
     return (
-        <SafeAreaView style = {[styles.container, isChecked ? {backgroundColor: 'black'} : {backgroundColor: 'white'}]}>
-            {/* Text input field */}
-            <TextInput
-                style = {styles.input_style}
-                onChangeText = {text => onChangeInput(text)}
-                value = {inputValue}
-                placeholder = "Enter text.."
-            />
+        <SafeAreaView style = {styles.container}>
+            <View style = {styles.wrapper}>
+                {/* Header Title */}
+                <Text style={styles.header}>CONTACT FORM</Text>
+                
+                {/* Text input fields */}
+                <TextInput
+                    style = {styles.inputStyle}
+                    onChangeText = {text => onChangeFirstName(text)}
+                    value = {firstNameValue}
+                    placeholder = "First Name"
+                />
+                <TextInput
+                    style = {styles.inputStyle}
+                    onChangeText = {text => onChangeLastName(text)}
+                    value = {lastNameValue}
+                    placeholder = "Last Name"
+                />
+                <TextInput
+                    style = {styles.inputStyle}
+                    onChangeText = {text => onChangeEmail(text)}
+                    value = {emailValue}
+                    placeholder = "Email"
+                />
+
+                {/* Send button */}
+                <TouchableOpacity
+                    style={[styles.button, {backgroundColor: 'green'}]}
+                    onPress = {onClickSendButton}>
+                    <Text style={[{color: 'white'}, {fontSize: 24}, {fontWeight: 'bold'}, , {textAlign: 'center'}]}>SEND</Text>
+                </TouchableOpacity>
+
+                {/* Clear button */}
+                <TouchableOpacity
+                    style={[styles.button, {backgroundColor: 'red'}]}
+                    onPress = {onClickClearButton}>
+                    <Text style={[{color: 'white'}, {fontSize: 24}, {fontWeight: 'bold'}, {textAlign: 'center'}]}>CLEAR</Text>
+                </TouchableOpacity>
+            </View>
 
             <Text>{'\n'}</Text>
 
-            {/* Clear button */}
-            <Button
-                onPress = {() => onChangeInput('')}
-                title = "Clear" 
-                color = "red"
-            />
-
-            <Text>{'\n'}</Text>
-
-            {/* Output text */}
-            <Text style = {{color: 'orange', fontSize: 24}}>{inputValue}</Text>
-
-            <Text>{'\n'}</Text>
+            {/* Output */}
+            <Text style = {{fontSize: 20}}>{output}</Text>
         </SafeAreaView>
     );
 };
 
 // Style definitions
 const styles = StyleSheet.create({
-    container:{
+    container: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
-    input_style: {
-        fontSize: 24,
-        padding: 10,
-        height: 50,
-        width: '80%',
+    wrapper: {
         borderWidth: 2,
-        borderColor: 'orange',
-        backgroundColor: 'lightgray'
+        borderColor: 'black',
+        padding: 20,
+        borderRadius: 10
+    },
+    header: {
+        fontSize: 30,
+        fontWeight: 'bold',
+        textAlign: 'center'
+    },
+    inputStyle: {
+        fontSize: 20,
+        padding: 10,
+        marginTop: 5,
+        height: 50,
+        width: 300,
+        borderWidth: 2,
+        borderColor: 'black',
+    },
+    button: {
+        marginTop: 10,
+        paddingTop: 10,
+        paddingBottom: 10,
+        textAlign: 'center',
+        width: 300
     }
 });
