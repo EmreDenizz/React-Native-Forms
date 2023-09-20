@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import {View, SafeAreaView, StyleSheet, TextInput, Text, Button, TouchableOpacity} from 'react-native';
+import {View, SafeAreaView, StyleSheet, TextInput, Text, Alert, TouchableOpacity} from 'react-native';
 
 export default function App() {
     const [firstNameValue, onChangeFirstName] = React.useState('');
@@ -23,6 +23,7 @@ export default function App() {
     // Send button function
     function onClickSendButton() {
         setOutput(firstNameValue + '\n' + lastNameValue + '\n' + emailValue);
+        Alert.alert(firstNameValue + '\n' + lastNameValue + '\n' + emailValue);
     };
 
     return (
@@ -69,7 +70,7 @@ export default function App() {
             <Text>{'\n'}</Text>
 
             {/* Output */}
-            <Text style = {{fontSize: 20}}>{output}</Text>
+            {/* <Text style = {{fontSize: 20}}>{output}</Text> */}
         </SafeAreaView>
     );
 };
