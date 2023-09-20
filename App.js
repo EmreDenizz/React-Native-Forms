@@ -10,19 +10,16 @@ export default function App() {
     const [firstNameValue, onChangeFirstName] = React.useState('');
     const [lastNameValue, onChangeLastName] = React.useState('');
     const [emailValue, onChangeEmail] = React.useState('');
-    const [output, setOutput] = React.useState('');
 
     // Clear button function
     function onClickClearButton() {
         onChangeFirstName('');
         onChangeLastName('');
         onChangeEmail('');
-        setOutput('');
     };
 
     // Send button function
     function onClickSendButton() {
-        setOutput(firstNameValue + '\n' + lastNameValue + '\n' + emailValue);
         Alert.alert(firstNameValue + '\n' + lastNameValue + '\n' + emailValue);
     };
 
